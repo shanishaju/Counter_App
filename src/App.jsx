@@ -3,17 +3,32 @@ import TextField from '@mui/material/TextField';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { decrement, increment, reset } from './redux/counterslice';
+import { useState } from 'react';
 
 
 function App() {
+
+
+const  [range, setRange] = useState("")
 
 //access state
 const count= useSelector((state)=>state.counterReducer.value)
 
 //call action
-
 const dispatch = useDispatch()
+const handleRange =()=>{
 
+  if(!range ){
+    alert('please enter range ')
+
+  }
+  else{
+    dispatch(rangeChange(Number(range)))
+  }
+}
+
+
+console.log(range);
   return (
     <>
      <div className='d-flex justify-content-center align-items-center' style={{width:'100%', height:'100vh'}}> 
@@ -26,8 +41,8 @@ const dispatch = useDispatch()
         <button type='button' className='btn btn-success'  onClick={()=>dispatch(increment())}>Increment</button>
         </div>
         <div className='d-flex justify-content-center mt-5'> 
-        <TextField   style={{ width: '300px' }}  id="outlined-basic" label="Range" variant="outlined" />
-        <button type='button' className='btn btn-primary'>Click</button>
+        <TextField   style={{ width: '300px' }}  id="outlined-basic" label="Range" variant="outlined" onChange={(e)=>setRange(e.target.value)} />
+        <button type='button' className='btn btn-primary' onClick={handleRange}>Click</button>
         </div>
         </div>
      </div>
